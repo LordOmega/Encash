@@ -40,7 +40,7 @@ function checkInput(input) {
 }
 
 function calcCurrentDebt(asset) {
-    return (parseFloat(asset["debt"]) - ((asset["start_month"] - _date_.getMonth() + 1) * parseFloat(asset["monthly_payment"])));
+    return (parseFloat(asset["debt"]) - ((_date_.getMonth() - asset["start_month"] + 1) * parseInt(asset["monthly_payment"])));
 }
 
 function navAction() {

@@ -1,4 +1,4 @@
-var CACHE_NAME = 'Encash_Go_To_Zero_v0';
+var CACHE_NAME = 'Encash_Go_To_Zero_v0_1';
 var urlsToCache = [
   '/Encash',
   '/Encash/',
