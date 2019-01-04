@@ -1,0 +1,14 @@
+{
+    "name": "Encash - Go to zero!",
+    "short_name": "Go to zero!",
+    "lang": "en-US",
+    "icons": [
+    ],
+    "prefer_related_applications": false,
+    "start_url": "https://lordomega.github.io/Encash/index.html",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "white",
+    "theme_color": "rgb(255,127,80)"
+}
+    
