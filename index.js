@@ -43,6 +43,26 @@ function calcCurrentDebt(asset) {
     return (parseFloat(asset["debt"]) - ((_date_.getMonth() - asset["start_month"] + 1) * parseInt(asset["monthly_payment"])));
 }
 
+function createList() {
+    for (var key in data.assets) {
+        document.getElementById('content').appendChild(React.createElement('tr',{onclick: "pay('" + key + "');"},React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"},data.assets[key].asset + " - " + _months_[_date_.getMonth()]),React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"}, calcCurrentDebt(data.assets[key]) + '€')));
+    }
+}
+
+function pay(asset) {
+    var amount = prompt("amount:","");
+    if(checkInput(amount)) {
+        data.assets[asset]["debt"] = (parseFloat(data.assets[asset]["debt"]) - parseFloat(amount.replace(",","."))).toString();
+        localStorage.setItem("data_encash", JSON.stringify(data));
+        
+        while (element.firstChild) {
+            element.firstChild.remove();
+        }
+
+        createList();
+    }
+}
+
 function navAction() {
     var asset = prompt("asset:", "");
     if(checkInput(asset)) {
@@ -57,16 +77,12 @@ function navAction() {
                 obj["start_month"] = _date_.getMonth();
                 obj["start_year"] = _date_.getFullYear();
 
-                console.log(obj, asset, data.assets);
-
                 data.assets[asset] = obj;
-                document.getElementById('content').appendChild(React.createElement('tr',{},React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"},asset + " - " + _months_[_date_.getMonth()]),React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"}, calcCurrentDebt(obj) + '€')));
+                document.getElementById('content').appendChild(React.createElement('tr',{onclick: "pay('" + asset + "');"},React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"},asset + " - " + _months_[_date_.getMonth()]),React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"}, calcCurrentDebt(obj) + '€')));
                 localStorage.setItem("data_encash", JSON.stringify(data));
             }         
         }
     }
 }
 
-for (var key in data.assets) {
-    document.getElementById('content').appendChild(React.createElement('tr',{},React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"},data.assets[key].asset + " - " + _months_[_date_.getMonth()]),React.createElement('td',{style: "border-bottom: 1px solid rgb(247, 247, 248);"}, calcCurrentDebt(data.assets[key]) + '€')));
-}
+createList();
